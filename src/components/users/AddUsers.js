@@ -1,9 +1,8 @@
 import Card from "../UI/Card";
 import classes from './Adduser.module.css'
 import Button from '../UI/Button'
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import ErrorModal from "../UI/ErrorModal";
-import Wrapper from "../Helpers/Wrapper";
 
 const AddUsers = props => {
 
@@ -45,7 +44,7 @@ const AddUsers = props => {
         setError(null)
     }
 
-    return (<Wrapper>
+    return (<Fragment>
         {error && <ErrorModal title={"An Error occurred!"} message={"Something went Wrong!"}
                               onConfirm={errorHandler}></ErrorModal>}
         <Card className={classes.input}>
@@ -57,7 +56,7 @@ const AddUsers = props => {
                 <Button type={'submit'}>Add User</Button>
             </form>
         </Card>
-    </Wrapper>)
+    </Fragment>)
 }
 
 export default AddUsers
