@@ -1,4 +1,5 @@
 .button{
+    width: 100%;
     font: inherit;
     border: 1px solid purple;
     background:  purple;
@@ -14,4 +15,10 @@
 
 .button:focus{
     outline: none;
+}
+
+@media (min-width: 786px) {
+    .button {
+        width: auto;
+    }
 }
