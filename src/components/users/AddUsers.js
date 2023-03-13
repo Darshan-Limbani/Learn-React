@@ -3,14 +3,13 @@ import classes from './Adduser.module.css'
 import Button from '../UI/Button'
 import {useState} from "react";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
 
 const AddUsers = props => {
 
-
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
-    const [error,setError] = useState();
-
+    const [error, setError] = useState();
 
     const addUserHandler = (event) => {
         event.preventDefault()
@@ -18,15 +17,13 @@ const AddUsers = props => {
 
         if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
             setError({
-                title:'Invalid input',
-                message : 'Please enter a valid name and age (non empty value).'
+                title: 'Invalid input', message: 'Please enter a valid name and age (non empty value).'
             })
             return;
         }
         if (+enteredAge < 1) {
             setError({
-                title:'invalid age',
-                message : 'Please enter a valid age (> 0).'
+                title: 'invalid age', message: 'Please enter a valid age (> 0).'
             })
             return;
         }
@@ -44,24 +41,23 @@ const AddUsers = props => {
         setEnteredAge(event.target.value)
     }
 
-    const errorHandler=()=>{
+    const errorHandler = () => {
         setError(null)
     }
 
-    return (
-
-        <div>
-            {error && <ErrorModal title={"An Error occurred!"} message={"Something went Wrong!"} onConfirm={errorHandler}></ErrorModal>}
-            <Card className={classes.input}>
-                <form onSubmit={addUserHandler}>
-                    <label htmlFor="username">Username</label>
-                    <input id="username" type="text" value={enteredUsername} onChange={usernameChaneHandler}/>
-                    <label htmlFor="age">Age (Years)</label>
-                    <input id="age" type="number" value={enteredAge} onChange={ageChangeHandler}/>
-                    <Button type={'submit'}>Add User</Button>
-                </form>
-            </Card>
-        </div>)
+    return (<Wrapper>
+        {error && <ErrorModal title={"An Error occurred!"} message={"Something went Wrong!"}
+                              onConfirm={errorHandler}></ErrorModal>}
+        <Card className={classes.input}>
+            <form onSubmit={addUserHandler}>
+                <label htmlFor="username">Username</label>
+                <input id="username" type="text" value={enteredUsername} onChange={usernameChaneHandler}/>
+                <label htmlFor="age">Age (Years)</label>
+                <input id="age" type="number" value={enteredAge} onChange={ageChangeHandler}/>
+                <Button type={'submit'}>Add User</Button>
+            </form>
+        </Card>
+    </Wrapper>)
 }
 
 export default AddUsers
