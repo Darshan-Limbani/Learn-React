@@ -8,7 +8,6 @@ import AuthContext from "./components/store/auth-context";
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
     // const loginHandler = (email, password) => {
     //     // We should of course check email and password
     //     // But it's just a dummy/ demo anyways
@@ -22,7 +21,6 @@ function App() {
     // };
 
     const authCtx = useContext(AuthContext);
-    {/*isAuthenticated={isLoggedIn} onLogout={authCtx.onLogout}*/}
     return (
         <React.Fragment>
             <MainHeader />
