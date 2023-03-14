@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useReducer, useState} from 'react';
+import React, {useContext, useEffect, useReducer, useRef, useState} from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -47,6 +47,11 @@ const Login = (props) => {
     const {isValid: passwordIsValid} = passwordState;
 
 
+    const authCtx = useContext(AuthContext);
+    const emailRef = useRef();
+    const passwordRef = useRef();
+
+
     useEffect(() => {
 
         const identifier = setTimeout(() => {
@@ -86,11 +91,16 @@ const Login = (props) => {
         // setPasswordIsValid(enteredPassword.trim().length > 6);
         dispatchPassword({type: 'INPUT_BLUR'});
     };
-    const authCtx = useContext(AuthContext);
 
     const submitHandler = (event) => {
         event.preventDefault();
-        authCtx.onLogin(emailState.value, passwordState.value);
+        if (formIsValid) {
+            authCtx.onLogin(emailState.value, passwordState.value);
+        } else if (!emailIsValid) {
+            emailRef.current.focus();
+        } else {
+            passwordRef.current.focus();
+        }
     };
 
     return (
@@ -98,6 +108,7 @@ const Login = (props) => {
             <form onSubmit={submitHandler}>
 
                 <Input
+                    ref={emailRef}
                     type="email"
                     id="email"
                     isValid={emailIsValid}
@@ -106,8 +117,8 @@ const Login = (props) => {
                     onBlur={validateEmailHandler}
                     label="E-Mail"
                 />
-
                 <Input
+                    ref={passwordRef}
                     type="password"
                     id="password"
                     isValid={passwordIsValid}
@@ -117,7 +128,7 @@ const Login = (props) => {
                     label="Password"
                 />
                 <div className={classes.actions}>
-                    <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+                    <Button type="submit" className={classes.btn}>
                         Login
                     </Button>
                 </div>
