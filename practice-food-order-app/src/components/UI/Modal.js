@@ -1,6 +1,6 @@
 import classes from './Modal.module.css'
 import {Fragment} from "react";
-import {ReactDOM} from "react-dom";
+import ReactDOM from "react-dom";
 
 const BackDrop = props => {
     return <div className={classes.backdrop}></div>
