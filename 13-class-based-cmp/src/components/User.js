@@ -3,6 +3,12 @@ import {Component} from "react";
 
 
 class User extends Component {
+
+
+    componentWillUnmount() {
+        console.log('User will Unmount')
+    }
+
     render() {
         return <li className={classes.user}>{this.props.name}</li>;
     }
