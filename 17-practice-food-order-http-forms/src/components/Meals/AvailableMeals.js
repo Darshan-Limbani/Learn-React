@@ -15,6 +15,7 @@ import {useEffect, useState} from "react";
 const AvailableMeals = () => {
 
     const [meals, setMeals] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
 
@@ -34,11 +35,20 @@ const AvailableMeals = () => {
             }
             setMeals(loadedMeals)
             console.log(loadedMeals)
+            setIsLoading(false)
         }
 
         fetchMeals()
 
     }, []);
+
+    if(isLoading)
+    {
+        return <section>
+            <p className={classes.MealsLoading}>Loading...</p>
+        </section>
+    }
+
 
 
     const mealsList = meals.map(meal => <MealItem
