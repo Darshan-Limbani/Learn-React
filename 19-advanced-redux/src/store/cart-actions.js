@@ -1,12 +1,10 @@
 import {uiActions} from "./ui-slice";
-import {replaceBehavior} from "@testing-library/user-event/dist/keyboard/plugins";
 import {cartActions} from "./cart-slice";
 import cart from "../components/Cart/Cart";
 
 
 export const fetchCartData = () => {
     return async (dispatch) => {
-
 
         const fetchData = async () => {
 
@@ -16,15 +14,16 @@ export const fetchCartData = () => {
                 throw new Error('Sending cart data failed.')
             }
 
-
             const data = await response.json()
             return data;
         }
 
-
         try {
             const cartData = await fetchData()
-            dispatch(cartActions.replaceCart(cartData))
+            dispatch(cartActions.replaceCart({
+                items: cartData.items || [],
+                totalQuantity: cartData.totalQuantity
+            }))
         } catch (err) {
             dispatch(uiActions.showNotification({
                 status: 'error',
@@ -47,7 +46,10 @@ export const sendCartData = (cartData) => {
         const sendRequest = async () => {
             const response = await fetch('https://react-http-7c896-default-rtdb.firebaseio.com/cart.json', {
                 method: 'PUT',
-                body: JSON.stringify(cartData)
+                body: JSON.stringify({
+                    items: cartData.items,
+                    totalQuantity: cartData.totalQuantity
+                })
             })
 
             if (!response.ok) {
