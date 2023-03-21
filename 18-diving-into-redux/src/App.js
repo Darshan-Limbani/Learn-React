@@ -1,11 +1,16 @@
 import Counter from './components/Counter';
-import store from "./store";
-import {Provider} from "react-redux";
+import {Fragment} from "react";
+import Header from "./components/Header";
+import Auth from "./components/Auth";
 
 
 function App() {
     return (
-        <Provider store={store}> <Counter/> </Provider>
+        <Fragment>
+            <Header/>
+            <Auth/>
+            <Counter/>
+        </Fragment>
     );
 }
 
