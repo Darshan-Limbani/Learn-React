@@ -1,6 +1,5 @@
 import {uiActions} from "./ui-slice";
 import {cartActions} from "./cart-slice";
-import cart from "../components/Cart/Cart";
 
 
 export const fetchCartData = () => {
