@@ -1,5 +1,6 @@
 import {Fragment} from "react";
-import {useParams} from "react-router-dom";
+import {Route, useParams} from "react-router-dom";
+import Comments from "../comments/Comments";
 
 const QuoteDetail = () => {
 
@@ -9,6 +10,9 @@ const QuoteDetail = () => {
         <Fragment>
             <p>This is Quote Details Page</p>
             <p>{params.quoteId}</p>
+            <Route path={`/quotes/${params.quoteId}/comment`}>
+                <Comments/>
+            </Route>
         </Fragment>)
 
 }
