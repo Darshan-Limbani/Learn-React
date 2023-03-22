@@ -27,8 +27,6 @@ const QuoteForm = (props) => {
             return;
         }
 
-        // setIsChanged(true)
-        // optional: Could validate here
         props.onAddQuote({author: enteredAuthor, text: enteredText});
     }
 
@@ -43,24 +41,24 @@ const QuoteForm = (props) => {
     return (<Fragment>
             <Prompt when={isChanged}
                     message={(location) => 'Are you sure you want to exit? All your data will be lost'}/>
-                <Card>
-                    <form className={classes.form} onSubmit={submitFormHandler} onFocus={formFocusedHandler}>
-                        {props.isLoading && (<div className={classes.loading}>
-                            <LoadingSpinner/>
-                        </div>)}
-                        <div className={classes.control}>
-                            <label htmlFor='quote_author'>Author</label>
-                            <input type='text' id='quote_author' ref={authorInputRef}/>
-                        </div>
-                        <div className={classes.control}>
-                            <label htmlFor='text'>Text</label>
-                            <textarea id='text' rows='5' ref={textInputRef}></textarea>
-                        </div>
-                        <div className={classes.actions}>
-                            <button className='btn' onClick={finishChangedHandler}>Add Quote</button>
-                        </div>
-                    </form>
-                </Card>
+            <Card>
+                <form className={classes.form} onSubmit={submitFormHandler} onFocus={formFocusedHandler}>
+                    {props.isLoading && (<div className={classes.loading}>
+                        <LoadingSpinner/>
+                    </div>)}
+                    <div className={classes.control}>
+                        <label htmlFor='quote_author'>Author</label>
+                        <input type='text' id='quote_author' ref={authorInputRef}/>
+                    </div>
+                    <div className={classes.control}>
+                        <label htmlFor='text'>Text</label>
+                        <textarea id='text' rows='5' ref={textInputRef}></textarea>
+                    </div>
+                    <div className={classes.actions}>
+                        <button className='btn' onClick={finishChangedHandler}>Add Quote</button>
+                    </div>
+                </form>
+            </Card>
 
         </Fragment>
     );
