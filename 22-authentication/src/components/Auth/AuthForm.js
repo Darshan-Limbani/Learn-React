@@ -1,10 +1,13 @@
-import {useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 
 import classes from './AuthForm.module.css';
+import AuthContext from "../../store/auth-context";
 
 const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+
+    const authCtx = useContext(AuthContext);
 
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
@@ -15,9 +18,6 @@ const AuthForm = () => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-
-
-        console.log('submitted.................')
 
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
@@ -30,7 +30,6 @@ const AuthForm = () => {
         } else {
             url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBUjEX47wKKCsBs4cYSXHBw8WqmZaLfXzU'
         }
-
 
         const request = async () => {
 
@@ -48,8 +47,7 @@ const AuthForm = () => {
                     // console.log('ERROR', response)
                     throw new Error('Authentication Failed!!')
                 }
-                const data = await response.json();
-                return data;
+                return await response.json();
             } catch (err) {
                 console.log("ERROR in FUNCTION.........................", err)
                 alert(err)
@@ -57,44 +55,10 @@ const AuthForm = () => {
 
         }
         // try {
-        request()
-        // .catch(err => {
-        // console.log("GET ERROR...")
-        // throw new Error(err)
-        // });
-        // } catch (err) {
-        //
-        //     console.log("ERROR..................", err)
-        //     alert(err.message)
-        // }
-
-
-        /*
-
-                    fetch(url,
-                        {
-                            method: 'post',
-                            body: JSON.stringify({
-                                email: enteredEmail,
-                                password: enteredPassword,
-                                returnSecureToken: true
-                            }),
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                        .then(res => {
-                            setIsLoading(false)
-                            if (res.ok) {
-                                return res.json()
-                            } else {
-                                return res.json().then(data => {
-                                    alert('Authentication Failed!!')
-                                    console.log(data)
-                                })
-                            }
-                        })
-        */
+        request().then(data => {
+            // console.log(data)
+            authCtx.login(data.idToken)
+        })
 
     }
     return (<section className={classes.auth}>
