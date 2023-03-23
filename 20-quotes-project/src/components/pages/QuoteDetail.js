@@ -1,69 +1,62 @@
-import {Fragment, useEffect} from "react";
-import {Link, Route, useParams, useRouteMatch} from "react-router-dom";
-import Comments from "../comments/Comments";
-import HighlightedQuote from "../quotes/HighlightedQuote";
-import useHttp from "../hooks/use-http";
-import {getSingleQuote} from "../lib/api";
+import {Fragment, useEffect} from 'react';
+import {Link, Route, useParams, useRouteMatch} from 'react-router-dom';
+
+import useHttp from '../hooks/use-http';
+import {getSingleQuote} from '../lib/api';
 import LoadingSpinner from "../UI/LoadingSpinner";
+import HighlightedQuote from "../quotes/HighlightedQuote";
+import Comments from "../comments/Comments";
 
-const DUMMY_QUOTES = [
-    {id: 'q1', author: 'Udit', text: "2 week ma React complete thaay to j Bake."},
-    {id: 'q2', author: 'Udit parmar', text: "Chai hai to Jahan Hai.."}
-]
 const QuoteDetail = () => {
+    const match = useRouteMatch();
+    const params = useParams();
 
-    const params = useParams()
-    const match = useRouteMatch()
+    console.log(match)
 
     const {quoteId} = params;
 
-    const {sendRequest, status, data: loadedQuote, error} = useHttp(getSingleQuote, true)
-
+    const {sendRequest, status, data: loadedQuote, error} = useHttp(
+        getSingleQuote,
+        true
+    );
 
     useEffect(() => {
-        sendRequest(quoteId)
-    }, [sendRequest, quoteId])
+        sendRequest(quoteId);
+    }, [sendRequest, quoteId]);
 
-
-    if (status == 'pending') {
+    if (status === 'pending') {
         return (
-            <div className={'centered'}>
+            <div className='centered'>
                 <LoadingSpinner/>
             </div>
-        )
+        );
     }
 
-
     if (error) {
-        return (
-            <p className={'centered focused'}>{error}</p>
-        )
+        return <p className='centered'>{error}</p>;
     }
 
     if (!loadedQuote.text) {
-        return <p>No Quotes Found!</p>
+        return <p>No quote found!</p>;
     }
 
+    console.log(match.path)
+    console.log(match.url)
     return (
         <Fragment>
-
             <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author}/>
-            <div className={'centered'}>
-
-                <Route path={match.path} exact>
-                    <Link className={'btn--flat'} to={`${match.path}/comments`}>
+            <Route path={match.path} exact>
+                <div className='centered'>
+                    <Link className='btn--flat' to={`${match.url}/comments`}>
                         Load Comments
                     </Link>
-
-                </Route>
-
-            </div>
+                </div>
+            </Route>
             <Route path={`${match.path}/comments`}>
-                }
                 <Comments/>
             </Route>
-        </Fragment>)
+        </Fragment>
+    );
+};
 
-}
-
-export default QuoteDetail
+export default QuoteDetail;
