@@ -39,7 +39,9 @@ const AuthForm = () => {
             try {
                 const response = await fetch(url, {
                     method: 'post', body: JSON.stringify({
-                        email: enteredEmail, password: enteredPassword, returnSecureToken: true
+                        email: enteredEmail,
+                        password: enteredPassword,
+                        returnSecureToken: true
                     }), headers: {
                         'Content-Type': 'application/json'
                     }
@@ -60,7 +62,8 @@ const AuthForm = () => {
         try {
             request().then(data => {
                 // console.log(data)
-                authCtx.login(data.idToken)
+                const expirationTime = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+                authCtx.login(data.idToken, expirationTime.toISOString())
                 history.replace('/')
             })
         } catch (err) {
