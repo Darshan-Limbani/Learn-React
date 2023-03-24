@@ -10,8 +10,6 @@ const ProfileForm = () => {
 
     const passRef = useRef();
 
-
-
     const submitHandler = (event) => {
         event.preventDefault()
 
