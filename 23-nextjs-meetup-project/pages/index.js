@@ -25,7 +25,8 @@ export async function getStaticProps() {
     return {
         props: {
             meetups: DUMMY_MEETUPS
-        }
+        },
+        revalidate:1
     }
 }
 
