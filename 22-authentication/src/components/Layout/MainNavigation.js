@@ -6,9 +6,12 @@ import AuthContext from "../../store/auth-context";
 
 const MainNavigation = () => {
     const {isLoggedIn} = useContext(AuthContext);
+    const authCtx = useContext(AuthContext)
+    const logoutHandler = () => {
+        authCtx.logout()
+    }
 
-    return (
-        <header className={classes.header}>
+    return (<header className={classes.header}>
             <Link to='/'>
                 <div className={classes.logo}>React Auth</div>
             </Link>
@@ -21,12 +24,11 @@ const MainNavigation = () => {
                         {isLoggedIn && <Link to='/profile'>Profile</Link>}
                     </li>
                     <li>
-                        {isLoggedIn && <button>Logout</button>}
+                        {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
                     </li>
                 </ul>
             </nav>
-        </header>
-    );
+        </header>);
 };
 
 export default MainNavigation;
