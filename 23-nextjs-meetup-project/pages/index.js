@@ -1,18 +1,6 @@
 import MeetupList from "@/components/meetups/MeetupList";
+import {MongoClient} from "mongodb";
 
-const DUMMY_MEETUPS = [{
-    id: 'm1',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_München.jpg/1280px-Stadtbild_München.jpg',
-    title: 'A First Meetup',
-    address: 'Science Center,Surat',
-    description: "This is first meetup!"
-}, {
-    id: 'm2',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_München.jpg/1280px-Stadtbild_München.jpg',
-    title: 'A Second Meetup',
-    address: 'Marine Drive,Mumbai',
-    description: "This is Second meetup!"
-}]
 
 
 function HomePage(props) {
@@ -36,11 +24,30 @@ function HomePage(props) {
 
 export async function getStaticProps(context) {
 
+    const client = await MongoClient.connect('mongodb+srv://nasa-api:m0s5FTv9G5OIJ8jc@nasacluster.0qtfgqd.mongodb.net/meetups?retryWrites=true&w=majority')
+
+    const db = client.db()
+    const meetupCollection = db.collection('meetups')
+
+    const meetups = await meetupCollection.find().toArray();
+    console.log(meetups);
+
+    client.close();
+
+    console.log('---------------------------------------',meetups)
+    console.log("meetups[0]._id.toString() : ",meetups[0]._id.toString())
+
     return {
         props: {
-            meetups: DUMMY_MEETUPS
+            meetups: meetups.map(meetup => ({
+                title: meetup.title,
+                address: meetup.address,
+                image: meetup.image,
+                id: meetup._id.toString()
+
+            }))
         },
-        revalidate:1
+        revalidate: 1
     }
 }
 
