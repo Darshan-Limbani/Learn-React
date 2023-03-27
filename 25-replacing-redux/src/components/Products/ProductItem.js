@@ -5,9 +5,11 @@ import Card from '../UI/Card';
 import './ProductItem.css';
 import {ProductsContext} from "../../context/products-context";
 
-const ProductItem = props => {
+const ProductItem = React.memo( props => {
 
-    const dispatch = useStore()[1]
+    console.log('RENDERING.......');
+
+    const dispatch = useStore(false)[1]
 
     const toggleFavHandler = () => {
         // dispatch(toggleFav(props.id));
@@ -26,6 +28,6 @@ const ProductItem = props => {
             </button>
         </div>
     </Card>);
-};
+});
 
 export default ProductItem;
