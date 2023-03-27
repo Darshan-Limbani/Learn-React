@@ -29,9 +29,7 @@ class App extends Component {
         return (
             <div className="App">
                 <h1>React Animations</h1>
-                <Transition in={this.state.modelIsOpen} timeout={300} mountOnEnter unmountOnExit>
-                    {state => (<Modal show={state} closed={this.closeModal}/>)}
-                </Transition>
+                   <Modal show={this.state.modelIsOpen} closed={this.closeModal}/>
 
                 {this.state.modelIsOpen ? < Backdrop show={this.state.modelIsOpen}/> : null}
 
