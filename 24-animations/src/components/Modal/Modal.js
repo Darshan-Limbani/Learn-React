@@ -23,7 +23,9 @@ const modal = (props) => {
                     enter: '',
                     enterActive: 'ModalOpen',
                     exit: '',
-                    exitActive: 'ModalClosed'
+                    exitActive: 'ModalClosed',
+                    appear:''
+
                 }}
             >
                 <div className={'Modal'}>
