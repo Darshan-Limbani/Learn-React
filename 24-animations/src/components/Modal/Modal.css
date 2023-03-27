@@ -13,6 +13,23 @@
     transition: all 0.3s ease-out;
 }
 
+.anime-fade-enter {
+}
+
+.anime-fade-enter-active {
+    animation: openModal 0.4s ease-out forwards;
+
+}
+
+.anime-fade-exit {
+}
+
+.anime-fade-exit-active {
+    animation: closeModal 1s ease-out forwards;
+
+}
+
+
 .ModalOpen {
     animation: openModal 0.4s ease-out forwards;
 }
