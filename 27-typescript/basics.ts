@@ -35,11 +35,17 @@ let hobbies: string[];
 
 hobbies = ['cricket', 'carrom']
 
-let people:{
-    name : string,
-    age:number
+let people: {
+    name: string,
+    age: number
 }[]
 
+
+// Type Inference
+// let course: string = "React JS"   // Redundant ts automatically takes te type if assign immediately
+let course = "React JS"
+
+// course = 256
 
 
 
