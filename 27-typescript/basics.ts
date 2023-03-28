@@ -60,17 +60,30 @@ user = 123
 
 // Functions & Types
 
-function add(a: number, b: number):number{
+function add(a: number, b: number): number {
     return a + b
 }
 
 
-function display(value:any):void{
+function display(value: any): void {
     console.log(value)
 }
 
-
 display(5)
+
+
+
+// Generic
+function insertAtBeginning<T>(array: T[], value: T) {
+    const newArr = [value, ...array]
+    return newArr
+}
+
+const demoArr = [1, 2, 3]
+
+let updatedArr = insertAtBeginning(demoArr, 0) // [0,1,2,3]
+let StringArr = insertAtBeginning(['a', 'b', 'c'], 'd') // [a,b,c,d]
+
 
 
 
