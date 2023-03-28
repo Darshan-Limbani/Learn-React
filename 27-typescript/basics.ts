@@ -19,26 +19,25 @@ isInstructor = false
 
 // More complex types
 
-let person: {
+
+// Type Aliases
+type People = {
     name: string,
     age: number
-    friends: string[]
 }
+
+let person: People
 
 person = {
     name: 'darshan',
     age: 21,
-    friends: ['udit', 'deep']
 }
 
 let hobbies: string[];
 
 hobbies = ['cricket', 'carrom']
 
-let people: {
-    name: string,
-    age: number
-}[]
+let people: People[]
 
 
 // Type Inference
