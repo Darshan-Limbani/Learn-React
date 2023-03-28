@@ -48,4 +48,13 @@ let course = "React JS"
 // course = 256
 
 
+// Union Typing
+
+let courses: string | string[] = "React"
+
+courses = ['React', 'Node']
+
+let user: string | number;
+user = 'Doe'
+user = 123
 
