@@ -57,3 +57,22 @@ let user: string | number;
 user = 'Doe'
 user = 123
 
+
+// Functions & Types
+
+function add(a: number, b: number):number{
+    return a + b
+}
+
+
+function display(value:any):void{
+    console.log(value)
+}
+
+
+display(5)
+
+
+
+
+
